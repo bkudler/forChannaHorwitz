@@ -1,17 +1,15 @@
 (
     (
-        create: {|self, score, pieces, waitTime=0.1, display|
+        create: {|self, score, setList, waitTime=0.1, display|
             self.score = score;
-            self.pieces = pieces;
+            self.setList = setList;
             self.waitTime = waitTime;
             self.display = display;
-
-            self.setList = self.setList.isNil.if { pieces.keys.asArray.scramble } { self.setList };
             
             self.task = Task.new({
-                self.setList.do({|title|
+                self.setList.pieces.do({|piece|
                     waitTime.yield;
-                    self.playPiece(score, pieces[title], display)
+                    self.playPiece(score, piece, display)
                 })
             })
         },
@@ -32,11 +30,6 @@
             });
 
             piece[\teardown].notNil.if { piece.teardown }
-        },
-
-        changeSetList: {|self, setList|
-            self.setList = setList;
-            self.create(self.score, self.pieces, self.waitTime, self.display)
         }
     )
 )
