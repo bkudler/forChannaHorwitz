@@ -3,8 +3,7 @@
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
 	// ~libPath = "~/Documents/SC/2019/channa/forChannaHorwitz/lib/".asAbsolutePath; // change as needed
-	~libPath = "/Users/bkudler/dev/complex-data/forChannaHorwitz/lib/".asAbsolutePath;
-
+	    ~libPath = "~/forChannaHorwitz/lib/".asAbsolutePath;
         ~piecePath = ~libPath ++ "pieces/";
         ~pieces = ();
 
