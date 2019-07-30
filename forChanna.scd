@@ -14,8 +14,8 @@
             ~pieces.add(p.title -> p)
         });
 
-        ~pieceList = (~libPath ++ "pieceList.scd").load;
-        ~pieceList.create(~pieces, [
+        ~playlist = (~libPath ++ "pieceList.scd").load;
+        ~playlist.create(~pieces, [
             \channaJar,
 //            \channaMary,
 //            \channaMary,
@@ -31,7 +31,7 @@
         ~colorMaker.create;
 
         ~player = (~libPath ++ "player.scd").load;
-        ~player.create(~score, ~pieceList, 0.1, ~colorMaker);
+        ~player.create(~score, ~playlist, 0.1, ~colorMaker);
 
         "Config OK!".postln
     }.fork(AppClock)
@@ -43,7 +43,7 @@
 
 (
 
-~pieceList.create(~pieces, [
+~playlist.create(~pieces, [
 	// \channaJar,
 	// \channaMary,
 	// \channaMary,
@@ -52,7 +52,7 @@
 	// \channaMaryTwo
 ]);
 
-~player.create(~score, ~pieceList, 0.1, ~colorMaker);
+~player.create(~score, ~playlist, 0.1, ~colorMaker);
 
 )
 
