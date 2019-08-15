@@ -1,3 +1,5 @@
+/* SETUP */
+
 (
     {
         s.options.memSize = 128 * 1024;
@@ -14,14 +16,6 @@
         });
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-	    ~playlist.create(~pieces, [
-            \channaJar,
-//            \channaMary,
-//            \channaMary,
-//            \channaGuit,
-//            \channaMaryTwo,
-//            \channaMaryTwo
-	   ]);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
@@ -36,23 +30,19 @@
     }.fork(AppClock)
 )
 
-~player.task.play(SystemClock)
-~player.task.stop
-
+/* USAGE */
 
 (
+    ~playlist.create(~pieces, [
+        // \channaJar,
+        // \channaMary,
+        // \channaMary,
+        \channaGuit,
+        \channaMaryTwo,
+        // \channaMaryTwo
+    ]);
 
-~playlist.create(~pieces, [
-	// \channaJar,
-	// \channaMary,
-	// \channaMary,
-    \channaGuit,
-    \channaMaryTwo,
-	// \channaMaryTwo
-]);
-
-~player.create(~score, ~playlist, 0.1, ~colorMaker);
-
+    ~player.create(~score, ~playlist, 0.1, ~colorMaker);
 )
 
 ~player.task.play(SystemClock)
