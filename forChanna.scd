@@ -4,19 +4,15 @@
     {
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
-	~libPath = "/Users/bkudler/forChannaHorwitz/lib/".asAbsolutePath; // change as needed
+	/* ~libPath = "/Users/bkudler/forChannaHorwitz/lib/".asAbsolutePath; // change as needed */
+	~libPath = "~/Documents/SC/2019/channa/forChanna/lib/".asAbsolutePath; // change as needed
         ~piecePath = ~libPath ++ "views/players/";
-        ~pieces = ();
 
-        PathName.new(~piecePath).files.collect({|f|
-            f.fullPath.load
-        }).do({|p|
-            p.init;
-            ~pieces.add(p.title -> p)
-        });
+        ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
+        ~pieces.create(~piecePath);
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-        ~playlist.create(~pieces);
+        ~playlist.create(~pieces.directory);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
@@ -33,8 +29,12 @@
 
 /* USAGE */
 
+// list available pieces
+~pieces.postNames;
+
+// create new playlist and player
 (
-    ~playlist.create(~pieces, [
+    ~playlist.create(~pieces.directory, [
         // \channaJar,
         // \channaMary,
         // \channaMary,
@@ -46,5 +46,6 @@
     ~player.create(~score, ~playlist, 0.1, ~colorMaker)
 )
 
+// play playlist on player
 ~player.task.play(SystemClock)
 ~player.task.stop
