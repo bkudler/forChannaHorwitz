@@ -4,9 +4,8 @@
     {
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
-	/* ~libPath = "/Users/bkudler/forChannaHorwitz/lib/".asAbsolutePath; // change as needed */
-	~libPath = "~/Documents/SC/2019/channa/forChanna/lib/".asAbsolutePath; // change as needed
-        ~piecePath = ~libPath ++ "views/players/";
+	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
+        ~piecePath = ~libPath ++ "/views/players";
 
         ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
         ~pieces.create(~piecePath);
