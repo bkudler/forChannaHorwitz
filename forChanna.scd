@@ -9,13 +9,13 @@
         PathName.new(~piecePath).files.collect({|f|
             f.fullPath.load
         }).do({|p|
-		    p.init;
-		    ~pieces.add(p.title -> p)
+		p.init;
+		~pieces.add(p.title -> p)
         });
 
-        ~playList = (~libPath ++ "/helpers/pieceList.scd").load;
-	~playList.create(~pieces, [
-		\channaJar,
+        ~playlist = (~libPath ++ "/helpers/pieceList.scd").load;
+	~playlist.create(~pieces, [
+	      \channaJar,
 //            \channaMary,
 //            \channaMary,
 //            \channaGuit,
@@ -42,7 +42,7 @@
 
 (
 
-~pieceList.create(~pieces, [
+~playlist.create(~pieces, [
 	// \channaJar,
 	// \channaMary,
 	// \channaMary,
@@ -51,7 +51,7 @@
 	// \channaMaryTwo
 ]);
 
-~player.create(~score, ~pieceList, 0.1, ~colorMaker);
+~player.create(~score, ~playlist, 0.1, ~colorMaker);
 
 )
 
