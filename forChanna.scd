@@ -1,27 +1,17 @@
+/* SETUP */
+
 (
     {
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
-	~libPath = "/Users/bkudler/forChannaHorwitz/lib/".asAbsolutePath; // change as needed
-        ~piecePath = ~libPath ++ "views/players/";
-        ~pieces = ();
+	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
+        ~piecePath = ~libPath ++ "/views/players";
 
-        PathName.new(~piecePath).files.collect({|f|
-            f.fullPath.load;
-        }).do({|p|
-            p.init;
-            ~pieces.add(p.title -> p);
-        });
+        ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
+        ~pieces.create(~piecePath);
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-	    ~playlist.create(~pieces, [
-            \channaJar,
-//            \channaMary,
-//            \channaMary,
-//            \channaGuit,
-//            \channaMaryTwo,
-//            \channaMaryTwo
-	   ]);
+        ~playlist.create(~pieces.directory);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
@@ -36,24 +26,25 @@
     }.fork(AppClock)
 )
 
-~player.task.play(SystemClock)
-~player.task.stop
+/* USAGE */
 
+// list available pieces
+~pieces.postNames;
 
+// create new playlist and player
 (
+    ~playlist.create(~pieces.directory, [
+        // \channaJar,
+        // \channaMary,
+        // \channaMary,
+        \channaGuit,
+        \channaMaryTwo,
+        // \channaMaryTwo
+    ]);
 
-~playlist.create(~pieces, [
-	// \channaJar,
-	// \channaMary,
-	// \channaMary,
-    \channaGuit,
-    \channaMaryTwo,
-	// \channaMaryTwo
-]);
-
-~player.create(~score, ~playlist, 0.1, ~colorMaker);
-
+    ~player.create(~score, ~playlist, 0.1, ~colorMaker)
 )
 
+// play playlist on player
 ~player.task.play(SystemClock)
 ~player.task.stop

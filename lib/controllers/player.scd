@@ -1,13 +1,13 @@
 (
     (
-        create: {|self, score, setList, waitTime=0.1, display|
+        create: {|self, score, playlist, waitTime=0.1, display|
             self.score = score;
-            self.setList = setList;
+            self.playlist = playlist;
             self.waitTime = waitTime;
             self.display = display;
             
             self.task = Task.new({
-                self.setList.pieces.do({|piece|
+                self.playlist.pieces.do({|piece|
                     waitTime.yield;
                     self.playPiece(score, piece, display)
                 })
