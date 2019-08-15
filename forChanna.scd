@@ -14,8 +14,8 @@
 		    ~pieces.add(p.title -> p)
         });
 
-        ~pieceList = (~libPath ++ "/helpers/pieceList.scd").load;
-	~pieceList.create(~pieces, [
+        ~playlist = (~libPath ++ "/helpers/pieceList.scd").load;
+	~playist.create(~pieces, [
 		\channaJar,
 //            \channaMary,
 //            \channaMary,
