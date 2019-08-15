@@ -9,10 +9,10 @@
         ~pieces = ();
 
         PathName.new(~piecePath).files.collect({|f|
-            f.fullPath.load;
+            f.fullPath.load
         }).do({|p|
             p.init;
-            ~pieces.add(p.title -> p);
+            ~pieces.add(p.title -> p)
         });
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
@@ -42,7 +42,7 @@
         // \channaMaryTwo
     ]);
 
-    ~player.create(~score, ~playlist, 0.1, ~colorMaker);
+    ~player.create(~score, ~playlist, 0.1, ~colorMaker)
 )
 
 ~player.task.play(SystemClock)
