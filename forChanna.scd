@@ -16,6 +16,7 @@
         });
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
+        ~playlist.create(~pieces);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
