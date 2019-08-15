@@ -1,33 +1,16 @@
 /* SETUP */
 
 (
-    {
-        s.options.memSize = 128 * 1024;
-        s.options.sampleRate = 48000;
-	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
-        ~piecePath = ~libPath ++ "/views/players";
-
-        ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
-        ~pieces.create(~piecePath);
-
-        ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-        ~playlist.create(~pieces.directory);
-
-        ~score = (~libPath ++ "/models/score.scd").load;
-        ~score.create;
-
-        ~colorMaker = (~libPath ++ "/views/colors/colorMaker.scd").load;
-        ~colorMaker.create;
-
-        ~player = (~libPath ++ "/controllers/player.scd").load;
-        ~player.create(~score, ~playlist, 0.1, ~colorMaker);
-
-        "Config OK!".postln
-    }.fork(AppClock)
+    //change as needed
+    ~libPath = //put path to library here;
+    ~memSize = 128 * 1024;
+    ~sampleRate = 48000;
+    (~libPath ++ "/helpers/setup.scd").load.setUp(~libPath, ~memSize, ~sampleRate);
 )
 
-/* USAGE */
 
+
+/* USAGE */
 // list available pieces
 ~pieces.postNames;
 
