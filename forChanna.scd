@@ -30,7 +30,7 @@
         ~colorMaker.create;
 
         ~player = (~libPath ++ "/controllers/player.scd").load;
-        ~player.create(~score, ~playList, 0.1, ~colorMaker);
+        ~player.create(~score, ~playlist, 0.1, ~colorMaker);
 
         "Config OK!".postln
     }.fork(AppClock)
