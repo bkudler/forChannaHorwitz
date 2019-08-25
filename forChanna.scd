@@ -1,33 +1,48 @@
 /* SETUP */
-
 (
-    //change as needed
-    ~libPath = //put path to library here;
-    ~memSize = 128 * 1024;
-    ~sampleRate = 48000;
-    (~libPath ++ "/helpers/setup.scd").load.setUp(~libPath, ~memSize, ~sampleRate);
+~realization = (
+	libPath: //fill in with absolute path of lib folder,
+	memSize: 128 * 1024,
+	sampleRate: 48000,
+	pieces: nil,
+	playlist:nil,
+	player:nil,
+	score: nil,
+	colorMaker: nil,
+	setUp: {arg self;
+
+		var vals = (self.libPath ++ "/helpers/setup.scd").load.setUp(self.libPath, self.memSize, self.sampleRate).value();
+
+		self.pieces = vals.pieces;
+		self.playlist = vals.playlist;
+		self.player = vals.player;
+		self.score = vals.score;
+		self.colorMaker = vals.colorMaker;
+	};
+);
 )
 
+~realization.setUp;
 
 
 /* USAGE */
 // list available pieces
-~pieces.postNames;
+~realization.pieces.postNames;
 
 // create new playlist and player
 (
-    ~playlist.create(~pieces.directory, [
-        // \channaJar,
+    ~realization.playlist.create(~realization.pieces.directory, [
+	\channaJar,
         // \channaMary,
         // \channaMary,
-        \channaGuit,
-        \channaMaryTwo,
+	   // \channaGuit,
+	   // \channaMaryTwo,
         // \channaMaryTwo
     ]);
 
-    ~player.create(~score, ~playlist, 0.1, ~colorMaker)
+   ~realization.player.create(~realization.score, ~realization.playlist, 0.1, ~realization.colorMaker)
 )
 
 // play playlist on player
-~player.task.play(SystemClock)
-~player.task.stop
+~realization.player.task.play(SystemClock);
+~realization.player.task.stop
