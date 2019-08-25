@@ -33,11 +33,11 @@
 (
     ~realization.playlist.create(~realization.pieces.directory, [
 	\channaJar,
-        // \channaMary,
-        // \channaMary,
-	   // \channaGuit,
-	   // \channaMaryTwo,
-        // \channaMaryTwo
+	// \channaMary,
+	// \channaMary,
+	// \channaGuit,
+	// \channaMaryTwo,
+	// \channaMaryTwo
     ]);
 
    ~realization.player.create(~realization.score, ~realization.playlist, 0.1, ~realization.colorMaker)
