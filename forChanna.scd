@@ -1,7 +1,7 @@
 /* SETUP */
 (
 ~realization = (
-	libPath: //fill in with absolute path of lib folder,
+	libPath: "/Users/bkudler/dev/complex-data/forChannaHorwitz/lib/",
 	memSize: 128 * 1024,
 	sampleRate: 48000,
 	pieces: nil,
@@ -9,21 +9,33 @@
 	player:nil,
 	score: nil,
 	colorMaker: nil,
+	helper: {arg self; (self.libPath ++ "/helpers/setup.scd").load},
+	startServer: {arg self;
+		self.helper.value.startServer(self.memSize, self.sampleRate);
+	},
 	setUp: {arg self;
-
-		var vals = (self.libPath ++ "/helpers/setup.scd").load.setUp(self.libPath, self.memSize, self.sampleRate).value();
-
-		self.pieces = vals.pieces;
-		self.playlist = vals.playlist;
-		self.player = vals.player;
-		self.score = vals.score;
-		self.colorMaker = vals.colorMaker;
-	};
+		    var vals;
+		    vals =
+ self.helper.value.setUp(self.libPath,self.serversStarted).value();
+			self.pieces = vals.pieces;
+		    self.playlist = vals.playlist;
+		    self.player = vals.player;
+		    self.score = vals.score;
+		    self.colorMaker = vals.colorMaker;
+			self.serversStarted = false;
+		}
 );
 )
 
-~realization.setUp;
-
+(
+{
+	~realization.startServer;
+	while({s.serverRunning !== true}){
+		1.wait;
+	};
+	~realization.setUp;
+}.fork(AppClock);
+)
 
 /* USAGE */
 // list available pieces
