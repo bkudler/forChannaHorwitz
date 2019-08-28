@@ -1,15 +1,13 @@
 (
     (
 
-	    serversStarted: false,
-
 	    startServer: {|self, memSize, sampleRate|
 		      s.reboot;
 			  s.options.memSize = memSize;
               s.options.sampleRate = sampleRate;
 	    },
 
-        setUp: {|self, basePath, serversStarted|
+        setUp: {|self, basePath|
 		    var piecePath, pieces, playlist, score, colorMaker, player, return, localHostRunning;
 
 

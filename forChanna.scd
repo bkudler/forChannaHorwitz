@@ -16,13 +16,12 @@
 	setUp: {arg self;
 		    var vals;
 		    vals =
- self.helper.value.setUp(self.libPath,self.serversStarted).value();
+ self.helper.value.setUp(self.libPath).value();
 			self.pieces = vals.pieces;
 		    self.playlist = vals.playlist;
 		    self.player = vals.player;
 		    self.score = vals.score;
 		    self.colorMaker = vals.colorMaker;
-			self.serversStarted = false;
 		}
 );
 )
