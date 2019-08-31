@@ -2,8 +2,6 @@
 
 (
     {
-        s.options.memSize = 128 * 1024;
-        s.options.sampleRate = 48000;
 	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
         ~piecePath = ~libPath ++ "/views/players";
 
