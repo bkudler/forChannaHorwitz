@@ -20,7 +20,14 @@
         ~player = (~libPath ++ "/controllers/player.scd").load;
         ~player.create(~score, ~playlist, 0.1, ~colorMaker);
 
-        s.bootSync;
+        ~serverRunning = Condition.new;
+        s.reboot;
+        s.doWhenBooted({
+            ~serverRunning.test_(true);
+            ~serverRunning.signal
+        });
+        ~serverRunning.wait;
+
         "Config OK!".postln
     }.fork(AppClock)
 )
