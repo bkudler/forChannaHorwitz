@@ -37,12 +37,7 @@
         }),
 
         init: {|self|
-            {
-                s.bootSync;
-
-                self.def.add;
-                s.sync
-            }.forkIfNeeded
+            self.def.add
         },
 
         setup: {|self|
