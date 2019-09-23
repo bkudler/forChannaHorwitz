@@ -20,11 +20,10 @@
 		        "please provide a piece list".postln;
 		    } {
 			   self.pieces = pieceList.collect({|title|
-				    self.directory[title].notNil.if{
-					    self.directory[title];
-				    }
-			    })
-		    }
+				self.directory[title];
+			   })
+		    };
+		    self.pieces = self.pieces.removeEvery([nil])
         },
 
 	    postNames: {|self|
