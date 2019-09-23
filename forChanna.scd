@@ -2,9 +2,10 @@
 
 (
     {
+
 	     var libPath, piecePath, pieces, playlist, score, colorMaker, player, serverRunning;
 
-	    libPath = Document.current.dir++"/lib".asAbsolutePath; // change as needed
+	      libPath = Document.current.dir++"/lib".asAbsolutePath; // change as needed
         piecePath = libPath ++ "/views/players";
 
         pieces = (libPath ++ "/helpers/pieces.scd").load;
@@ -22,18 +23,20 @@
         player = (libPath ++ "/controllers/player.scd").load;
         player.create(score, playlist, 0.1, colorMaker);
 
-	    serverRunning = Condition.new;
+	      serverRunning = Condition.new;
         s.reboot;
         s.doWhenBooted({
             serverRunning.test_(true);
             serverRunning.signal
         });
         serverRunning.wait;
+        
+	      ~realization = (pieces: pieces, playlist: playlist, score: score, colorMaker: colorMaker,
+		      player: player);
 
         "Config OK!".postln;
 
-	    ~realization = (pieces: pieces, playlist: playlist, score: score, colorMaker: colorMaker,
-		    player: player);
+          
     }.fork(AppClock)
 )
 
