@@ -16,13 +16,6 @@
         },
 
         create: {|self, pieceList|
-/*            self.pieces = pieceList.isNil.if {
-                pieces.values.scramble
-            } {
-                pieceList.collect({|title| pieces[title] })
-            }*/
-		// var directory = self.directory;
-
 		    pieceList.isNil.if{
 		        "please provide a piece list".postln;
 		    } {

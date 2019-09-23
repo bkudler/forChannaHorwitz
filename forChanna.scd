@@ -8,12 +8,8 @@
 	    ~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath;
         ~piecePath = ~libPath ++ "/views/players";
 
-	// ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
-	// ~pieces.create(~piecePath);
-
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
 	    ~playlist.initializePieceDirectory(~piecePath);
-	// ~playlist.create(~pieces.directory);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
