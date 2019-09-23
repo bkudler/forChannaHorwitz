@@ -4,14 +4,16 @@
     {
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
-	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
+
+	    ~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath;
         ~piecePath = ~libPath ++ "/views/players";
 
-        ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
-        ~pieces.create(~piecePath);
+	// ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
+	// ~pieces.create(~piecePath);
 
         ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-        ~playlist.create(~pieces.directory);
+	    ~playlist.initializePieceDirectory(~piecePath);
+	// ~playlist.create(~pieces.directory);
 
         ~score = (~libPath ++ "/models/score.scd").load;
         ~score.create;
@@ -29,11 +31,11 @@
 /* USAGE */
 
 // list available pieces
-~pieces.postNames;
+~playlist.postNames;
 
 // create new playlist and player
 (
-    ~playlist.create(~pieces.directory, [
+    ~playlist.create([
         // \channaJar,
         // \channaMary,
         // \channaMary,
