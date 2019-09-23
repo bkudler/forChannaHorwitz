@@ -2,55 +2,63 @@
 
 (
     {
-	~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath; // change as needed
-        ~piecePath = ~libPath ++ "/views/players";
 
-        ~pieces = (~libPath ++ "/helpers/pieces.scd").load;
-        ~pieces.create(~piecePath);
+	     var libPath, piecePath, pieces, playlist, score, colorMaker, player, serverRunning;
 
-        ~playlist = (~libPath ++ "/helpers/playlist.scd").load;
-        ~playlist.create(~pieces.directory);
+	      libPath = Document.current.dir++"/lib".asAbsolutePath; // change as needed
+        piecePath = libPath ++ "/views/players";
 
-        ~score = (~libPath ++ "/models/score.scd").load;
-        ~score.create;
+        pieces = (libPath ++ "/helpers/pieces.scd").load;
+        pieces.create(piecePath);
 
-        ~colorMaker = (~libPath ++ "/views/colors/colorMaker.scd").load;
-        ~colorMaker.create;
+        playlist = (libPath ++ "/helpers/playlist.scd").load;
+        playlist.create(pieces.directory);
 
-        ~player = (~libPath ++ "/controllers/player.scd").load;
-        ~player.create(~score, ~playlist, 0.1, ~colorMaker);
+        score = (libPath ++ "/models/score.scd").load;
+        score.create;
 
-        ~serverRunning = Condition.new;
+        colorMaker = (libPath ++ "/views/colors/colorMaker.scd").load;
+        colorMaker.create;
+
+        player = (libPath ++ "/controllers/player.scd").load;
+        player.create(score, playlist, 0.1, colorMaker);
+
+	      serverRunning = Condition.new;
         s.reboot;
         s.doWhenBooted({
-            ~serverRunning.test_(true);
-            ~serverRunning.signal
+            serverRunning.test_(true);
+            serverRunning.signal
         });
-        ~serverRunning.wait;
+        serverRunning.wait;
+        
+	      ~realization = (pieces: pieces, playlist: playlist, score: score, colorMaker: colorMaker,
+		      player: player);
 
-        "Config OK!".postln
+        "Config OK!".postln;
+
+          
     }.fork(AppClock)
 )
 
 /* USAGE */
 
 // list available pieces
-~pieces.postNames;
+~realization.pieces.postNames;
 
 // create new playlist and player
 (
-    ~playlist.create(~pieces.directory, [
-        // \channaJar,
+    ~realization.playlist.create(~realization.pieces.directory, [
+	\channaJar,
         // \channaMary,
         // \channaMary,
-        \channaGuit,
-        \channaMaryTwo,
+	    // \channaGuit,
+	    // \channaMaryTwo,
         // \channaMaryTwo
     ]);
 
-    ~player.create(~score, ~playlist, 0.1, ~colorMaker)
+    ~realization.player.create(~realization.score, ~realization.playlist, 0.1, ~realization.colorMaker)
 )
 
 // play playlist on player
-~player.task.play(SystemClock)
-~player.task.stop
+~realization.player.task.play(SystemClock)
+~realization.player.task.stop
