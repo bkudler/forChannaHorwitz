@@ -30,15 +30,9 @@
         }),
 
         init: {|self, length=4, base=80.525|
-            {
-                s.bootSync;
-
-                self.def.add;
-                s.sync;
-
-                self.lengths = self.makeLengths(length);
-                self.colors = self.makeColors(base)
-            }.forkIfNeeded
+            self.def.add;
+            self.lengths = self.makeLengths(length);
+            self.colors = self.makeColors(base)
         },
 
         setup: {|self|

@@ -5,6 +5,7 @@
         s.options.memSize = 128 * 1024;
         s.options.sampleRate = 48000;
 
+
 	    ~libPath = "/Users/bkudler/forChannaHorwitz/lib".asAbsolutePath;
         ~piecePath = ~libPath ++ "/views/players";
 
@@ -19,6 +20,14 @@
 
         ~player = (~libPath ++ "/controllers/player.scd").load;
         ~player.create(~score, ~playlist, 0.1, ~colorMaker);
+
+        ~serverRunning = Condition.new;
+        s.reboot;
+        s.doWhenBooted({
+            ~serverRunning.test_(true);
+            ~serverRunning.signal
+        });
+        ~serverRunning.wait;
 
         "Config OK!".postln
     }.fork(AppClock)

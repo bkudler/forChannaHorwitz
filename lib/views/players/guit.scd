@@ -75,14 +75,8 @@
         }),
 
         init: {|self, length=0.4|
-            {
-                s.bootSync;
-
-                self.def.add;
-                s.sync;
-
-                self.colors = self.makeColors(length)
-            }.forkIfNeeded
+            self.def.add;
+            self.colors = self.makeColors(length)
         },
 
         notes: [
