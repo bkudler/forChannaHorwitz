@@ -1,10 +1,13 @@
-(
-    (
-        create: {|self|
-            self.movements = [self.graph, self.graph2, self.graph2.reverse, self.graph.reverse]
-        },
+ChannaHorwitzScore {
 
-        graph: [
+    var pt1, pt2, <movements;
+	
+	*new{
+		^super.new.init();
+	}
+
+	init {
+		pt1 = [
             [
                 (x:1, y:1,color:'dark green',active:true), 
                 (x:2, y:1,color:'light blue',active:true), 
@@ -330,9 +333,8 @@
                 (x:7, y:8,color:'light green',active:false), 
                 (x:8, y:8,color:'dark green',active:true)
             ]
-        ],
-
-        graph2: [
+        ];
+        pt2 = [
             [
                 (x:1, y:7,color:'dark blue',active:true), 
                 (x:2, y:7,color:'purple',active:true), 
@@ -586,7 +588,17 @@
                 (x:7, y:1,color:'yellow',active:false), 
                 (x:8, y:1,color:'light green',active:true)
             ]
-        ]
-    )
-)
+        ];
+	}
 
+    normal {
+        movements = [pt1, pt2];
+    }
+
+    withReverse {
+        movements = [pt1, pt2, pt1.reverse, pt2.reverse];
+    }
+
+
+
+}
